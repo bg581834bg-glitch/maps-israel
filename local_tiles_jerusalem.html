@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_23370a5a3838765ef0fca1671d52e6c1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_23370a5a3838765ef0fca1671d52e6c1" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_23370a5a3838765ef0fca1671d52e6c1 = L.map(
+                "map_23370a5a3838765ef0fca1671d52e6c1",
+                {
+                    center: [31.77, 35.21],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 8,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_73b66b51e7f0c397cdb34b9ab756a0ee = L.tileLayer(
+                "http://localhost:8000/tiles/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Local Tiles",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+  "minZoom": 7,
+  "maxZoom": 14,
+}
+
+            );
+        
+    
+            tile_layer_73b66b51e7f0c397cdb34b9ab756a0ee.addTo(map_23370a5a3838765ef0fca1671d52e6c1);
+        
+    
+            var layer_control_7b9158a34577ded8ba66447abb470719_layers = {
+                base_layers : {
+                    "Local Tiles" : tile_layer_73b66b51e7f0c397cdb34b9ab756a0ee,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_7b9158a34577ded8ba66447abb470719 = L.control.layers(
+                layer_control_7b9158a34577ded8ba66447abb470719_layers.base_layers,
+                layer_control_7b9158a34577ded8ba66447abb470719_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_23370a5a3838765ef0fca1671d52e6c1);
+
+        
+    
+            var measure_control_0828ca05460b908ca40c79a21dee0ba8 = new L.Control.Measure(
+                {
+  "position": "topright",
+  "primaryLengthUnit": "meters",
+  "secondaryLengthUnit": "miles",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_23370a5a3838765ef0fca1671d52e6c1.addControl(measure_control_0828ca05460b908ca40c79a21dee0ba8);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            var marker_9c5ce279937565e7a8eca4ccf41db948 = L.marker(
+                [31.77, 35.21],
+                {
+}
+            ).addTo(map_23370a5a3838765ef0fca1671d52e6c1);
+        
+    
+        var popup_ebeb9c2e61d07166e62549628d0bb9f5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a2fe497c0314c308de47d8b07172f232 = $(`<div id="html_a2fe497c0314c308de47d8b07172f232" style="width: 100.0%; height: 100.0%;">ירושלים</div>`)[0];
+                popup_ebeb9c2e61d07166e62549628d0bb9f5.setContent(html_a2fe497c0314c308de47d8b07172f232);
+            
+        
+
+        marker_9c5ce279937565e7a8eca4ccf41db948.bindPopup(popup_ebeb9c2e61d07166e62549628d0bb9f5)
+        ;
+
+        
+    
+    
+            var tile_layer_117c12277b1119240cec42a1e4c788f2 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_422cc0a3bade8d3293636f8ba0315d37 = new L.Control.MiniMap(
+                tile_layer_117c12277b1119240cec42a1e4c788f2,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": false,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_23370a5a3838765ef0fca1671d52e6c1.addControl(mini_map_422cc0a3bade8d3293636f8ba0315d37);
+        
+</script>
+</html>
