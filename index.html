@@ -47,14 +47,17 @@
             box-shadow: 0 2px 16px rgba(0,0,0,0.10);
             padding: 18px 16px 0 16px;
             background: #fff;
+            /*overflow-y: auto; */
+            height: calc(100vh - 90px);
         }
         .sidebar.closed {
             transform: translateX(100%);
         }
         #toggleSidebar {
-            position: absolute;
-            left: -48px;
-            top: 24px;
+            position: fixed;
+            top: 120px;
+            right: 0;
+            z-index: 10001;
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -126,167 +129,194 @@
             #toggleSidebar { left: -54px; }
         }
         /* תפריט הקשר */
-    .context-menu {
-        min-width: 160px;
-        padding: 5px;
-    }
-    
-    .context-menu button {
-        width: 100%;
-        padding: 8px;
-        margin: 2px 0;
-        background: white;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        cursor: pointer;
-        text-align: right;
-    }
-    
-    .context-menu button:hover {
-        background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
-        color: #fff;
-    }
-    /* עיצוב הוראות נסיעה */
-    .direction-step {
-        background: #f8f9fa;
-        border-radius: 8px;
-        margin-bottom: 8px;
-        padding: 10px;
-        text-align: right;
-    }
-    
-    .direction-step i {
-        color: #0072ff;
-        margin-left: 8px;
-    }
-    
-    .direction-step small {
-        color: #6c757d;
-        display: block;
-        margin-right: 24px;
-        margin-top: 4px;
-    }
-    
-    #directions {
-        padding: 10px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .direction-step:hover {
-        background-color: #e9ecef !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+        .context-menu {
+            min-width: 160px;
+            padding: 5px;
+        }
+        
+        .context-menu button {
+            width: 100%;
+            padding: 8px;
+            margin: 2px 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: right;
+        }
+        
+        .context-menu button:hover {
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            color: #fff;
+        }
+        /* עיצוב הוראות נסיעה */
+        .direction-step {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            padding: 10px;
+            text-align: right;
+        }
+        
+        .direction-step i {
+            color: #0072ff;
+            margin-left: 8px;
+        }
+        
+        .direction-step small {
+            color: #6c757d;
+            display: block;
+            margin-right: 24px;
+            margin-top: 4px;
+        }
+        
+        #directions {
+            padding: 10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .direction-step:hover {
+            background-color: #e9ecef !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    .direction-step.highlighted {
-        background-color: #ffe600 !important;
-        color: #0072ff;
-    }
-        .btn-gradient.export-btn {
-        background: linear-gradient(90deg, #ff6b6b 0%, #ee5253 100%);
-        margin-top: 15px;
-        width: 100%;
-    }
+        .direction-step.highlighted {
+            background-color: #ffe600 !important;
+            color: #0072ff;
+        }
+            .btn-gradient.export-btn {
+            background: linear-gradient(90deg, #ff6b6b 0%, #ee5253 100%);
+            margin-top: 15px;
+            width: 100%;
+        }
 
-    .btn-gradient.export-btn:hover {
-        background: linear-gradient(90deg, #ee5253 0%, #ff6b6b 100%);
-    }
-    .btn-circle {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
-        color: #fff;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-        transition: all 0.3s;
-        margin: 0 4px;
-    }
+        .btn-gradient.export-btn:hover {
+            background: linear-gradient(90deg, #ee5253 0%, #ff6b6b 100%);
+        }
+        .btn-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            color: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: all 0.3s;
+            margin: 0 4px;
+        }
 
-    .btn-circle:hover {
-        transform: scale(1.1);
-        background: linear-gradient(90deg, #0072ff 0%, #00c6ff 100%);
-    }
+        .btn-circle:hover {
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #0072ff 0%, #00c6ff 100%);
+        }
 
-    .btn-circle.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
+        .btn-circle.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-    }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
 
-    .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 18px;
-        max-width: 90%;
-        width: 500px;
-        text-align: center;
-    }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            max-width: 90%;
+            width: 500px;
+            text-align: center;
+        }
 
-    .prayer-text {
-        margin: 20px 0;
-        text-align: right;
-        line-height: 1.6;
-    }
+        .prayer-text {
+            margin: 20px 0;
+            text-align: right;
+            line-height: 1.6;
+        }
 
-    .action-buttons {
-        display: flex;
-        justify-content: space-between;
-        padding: 16px;
-        background: white;
-        border-top: 1px solid #eee;
-        border-radius: 0 0 18px 18px;
-        margin: 0 -16px -16px -16px;
-    }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 16px !important;
+        }
 
-    #routeInfo {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        margin-top: 1rem;
-    }
+        #routeInfo {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 180px;
+            margin-top: 1rem;
+        }
 
-    #directions {
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px;
-        margin-bottom: 10px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
+        #directions {
+            flex-grow: 1;
+            overflow-y: auto;
+            min-height: 60px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 10px;
+        }
 
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        height: calc(100vh - 140px);
-        padding: 16px !important;
-    }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            border-top: 1px solid #eee;
+            border-radius: 0 0 18px 18px;
+            margin: 0;
+            flex-shrink: 0;
+            padding-top: 12px;
+            position: sticky;
+            bottom: 0;    
+        }
 
-    #routeForm {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-</style>
+        #routeForm {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        @media (max-width: 600px) {
+            .sidebar {
+                height: 98vh;
+                max-height: 98vh;
+                overflow-y: auto;
+            }
+            .card-body {
+                height: calc(98vh - 60px);
+                overflow-y: auto;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div id="loader" style="
+        position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:99999;
+        background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+        display:flex;align-items:center;justify-content:center;flex-direction:column;
+        transition: opacity 0.5s;
+    ">
+        <img src="logo.png" alt="לוגו" style="width:110px;height:110px;box-shadow:0 2px 16px #0072ff44;border-radius:18px;">
+        <div style="color:#fff;font-size:2.5rem;font-weight:bold;letter-spacing:2px;text-shadow:1px 1px 8px #333;margin-top:24px;">
+            go<span style="color:#ffe600;">'</span>maps
+        </div>
+    </div>   
     <!-- כותרת עליונה -->
     
     <nav class="navbar mb-2 gomaps-header">
@@ -299,15 +329,17 @@
     </nav>
 
     <!-- החלף את האזור של סרגל הצד -->
-    <div id="sidebar" class="sidebar">
-        <button id="toggleSidebar" title="הסתר/הצג סרגל">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-        <div class="card shadow-lg border-0">
-            <div class="card-body p-3 bg-light">
-                <h4 class="mb-4 text-center fw-bold" style="color:#0072ff; letter-spacing:2px;">
-                    תכנון מסלול
-                </h4>
+    
+    <button id="toggleSidebar" title="הסתר/הצג סרגל">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+        <div id="sidebar" class="sidebar">
+        <div class="card shadow-lg border-0 h-100">
+            <div class="card-body p-3 bg-light d-flex flex-column h-100">
+            <h4 class="mb-4 text-center fw-bold" style="color:#0072ff; letter-spacing:2px;">
+                תכנון מסלול
+            </h4>
+
                 <form id="routeForm" class="row g-3">
                     <div class="col-12">
                         <label for="origin" class="form-label fw-bold">מוצא</label>
@@ -322,11 +354,13 @@
                             הצג מסלול <i class="fas fa-route ms-2"></i>
                         </button>
                     </div>
-                    <!-- שנה את הדיב של routeInfo ל: -->
-                    <div id="routeInfo" class="col-12 mt-4">
-                        <div id="routeSummary" class="text-center mb-3"></div>
-                        <div id="directions" class="text-right"></div>
-                        <div class="action-buttons">
+
+                </form>
+                     <!-- שנה את הדיב של routeInfo ל: -->
+                <div id="routeInfo" class="d-flex flex-column flex-grow-1 mt-4">
+                    <div id="routeSummary" class="text-center mb-3"></div>
+                    <div id="directions" class="flex-grow-1" style="overflow-y:auto;"></div>
+                    <div class="action-buttons pt-3">
                             <button class="btn-circle" onclick="exportToPDF()" title="שמור ל-PDF">
                                 <i class="fas fa-file-pdf"></i>
                             </button>
@@ -340,8 +374,7 @@
                                 <i class="fas fa-ellipsis"></i>
                             </button>
                         </div>
-                    </div>
-                </form>
+                    </div>               
             </div>
         </div>
     </div>
@@ -505,29 +538,56 @@
 
     document.getElementById('routeForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        
-        const origin = document.getElementById('origin').value.split(',').map(coord => coord.trim());
-        const destination = document.getElementById('destination').value.split(',').map(coord => coord.trim());
-        
-        if (!origin[0] || !origin[1] || !destination[0] || !destination[1]) {
-            alert('נא לבחור נקודת מוצא ויעד');
+
+        // קבל ערכים מהשדות
+        const originVal = document.getElementById('origin').value.trim();
+        const destVal = document.getElementById('destination').value.trim();
+
+        // פונקציה לזיהוי קואורדינטות
+        function parseLatLng(val) {
+            const parts = val.split(',').map(s => s.trim());
+            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                return [parseFloat(parts[0]), parseFloat(parts[1])];
+            }
+            return null;
+        }
+
+        // פונקציה למציאת עיר לפי שם עברי
+        function findCityByHebName(name) {
+            return cities.find(city =>
+                city.alt_names.some(n => n.trim() === name)
+            );
+        }
+
+        // המרה של שדה למערך קואורדינטות
+        function getCoords(val) {
+            let coords = parseLatLng(val);
+            if (coords) return coords;
+            let city = findCityByHebName(val);
+            if (city) return [city.lat, city.lng];
+            return null;
+        }
+
+        const origin = getCoords(originVal);
+        const destination = getCoords(destVal);
+
+        if (!origin || !destination) {
+            alert('נא לבחור מוצא ויעד תקינים מתוך הרשימה או מהמפה');
             return;
         }
 
         // נקה את התוכן הקודם
         const routeSummary = document.getElementById('routeSummary');
         const directionsDiv = document.getElementById('directions');
-        
         if (routeSummary) routeSummary.innerHTML = "מחפש מסלול...";
         if (directionsDiv) directionsDiv.innerHTML = "";
 
         try {
             const originCoords = `${origin[1]},${origin[0]}`;
             const destCoords = `${destination[1]},${destination[0]}`;
-            
             const osrmUrl = `http://localhost:5000/route/v1/driving/${originCoords};${destCoords}?steps=true&geometries=geojson&overview=full&annotations=true`;
             console.log('OSRM URL:', osrmUrl);
-            
+
             const res = await fetch(osrmUrl);
             const data = await res.json();
             console.log('OSRM Response:', data);
@@ -552,16 +612,16 @@
                 if (routeSummary) {
                     routeSummary.innerHTML = `מרחק: <b>${distance}</b> ק"מ<br>זמן משוער: <b>${duration}</b> דקות`;
                 }
-                
+
                 // הצגת הוראות נסיעה
                 if (directionsDiv && data.routes[0].legs[0].steps) {
                     const steps = data.routes[0].legs[0].steps;
                     const directionsHtml = steps.map((step, index) => {
                         const stepDistance = (step.distance / 1000).toFixed(1);
-                        
+
                         let icon = 'arrow-right';
                         let instruction = step.maneuver.instruction || 'המשך ישר';
-                        
+
                         if (step.name) {
                             instruction = instruction.replace('המשך', `המשך ב${step.name}`);
                             instruction = instruction.replace('פנה', `פנה ל${step.name}`);
@@ -586,7 +646,7 @@
                                     break;
                             }
                         }
-                        
+
                         return `
                             <div class="direction-step p-2 mb-2 bg-light rounded" 
                                 onclick="highlightRouteSegment(${JSON.stringify(step.geometry.coordinates)})"
@@ -599,7 +659,7 @@
                             </div>
                         `;
                     }).join('');
-                    
+
                     directionsDiv.innerHTML = `
                         <h5 class="mb-3 text-center" style="color:#0072ff;">הוראות נסיעה:</h5>
                         ${directionsHtml}
@@ -616,6 +676,7 @@
             if (routeSummary) routeSummary.innerHTML = "שגיאה בחיפוש המסלול. אנא ודא שהשרת פועל.";
         }
     });
+
         // משתנים גלובליים לשמירת נקודות
     let startPoint = null;
     let endPoint = null;
@@ -694,12 +755,12 @@
         try {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            // המתן שכל האריחים יטענו
+
+            // ודא שכל האריחים נטענו
             await new Promise(resolve => {
                 const checkTiles = setInterval(() => {
                     const tiles = document.querySelectorAll('.leaflet-tile');
-                    const loadedTiles = Array.from(tiles).every(tile => tile.complete);
+                    const loadedTiles = Array.from(tiles).every(tile => tile.complete && tile.naturalWidth > 0);
                     if (loadedTiles) {
                         clearInterval(checkTiles);
                         resolve();
@@ -707,74 +768,29 @@
                 }, 100);
             });
 
-            // צילום המפה עם הגדרות מעודכנות
+            // צלם את המפה בלבד
             const mapElement = document.getElementById('map');
             const canvas = await html2canvas(mapElement, {
                 useCORS: true,
                 allowTaint: true,
-                foreignObjectRendering: true,
-                scale: 2,
-                logging: false,
-                backgroundColor: null,
-                onclone: function(clonedDoc) {
-                    const clonedMap = clonedDoc.getElementById('map');
-                    clonedMap.style.width = mapElement.offsetWidth + 'px';
-                    clonedMap.style.height = mapElement.offsetHeight + 'px';
-                    Array.from(clonedMap.querySelectorAll('.leaflet-tile')).forEach(tile => {
-                        tile.crossOrigin = 'anonymous';
-                    });
-                }
+                backgroundColor: "#fff",
+                scale: 2
             });
-            
-            // הוספת המפה לPDF
-            const mapImage = canvas.toDataURL('image/jpeg', 1.0);
-            pdf.addImage(mapImage, 'JPEG', 10, 10, 190, 100);
 
-            // יצירת תמונה מהטקסט העברי
-            const routeInfoDiv = document.createElement('div');
-            routeInfoDiv.style.cssText = `
-                width: 500px;
-                padding: 20px;
-                background: white;
-                direction: rtl;
-                font-family: Arial, sans-serif;
-                position: absolute;
-                left: -9999px;
-            `;
-            
-            const routeSummary = document.getElementById('routeSummary').innerText;
-            const directions = document.getElementById('directions').innerText;
-            
-            routeInfoDiv.innerHTML = `
-                <h2 style="color:#0072ff; text-align:center; margin-bottom:20px;">פרטי המסלול</h2>
-                <div style="font-size:16px; margin-bottom:20px; text-align:right;">${routeSummary}</div>
-                <h3 style="color:#0072ff; margin-bottom:15px;">הוראות נסיעה:</h3>
-                <div style="font-size:14px; text-align:right;">${directions}</div>
-            `;
-            
-            document.body.appendChild(routeInfoDiv);
-            
-            // צילום הטקסט והוספה לPDF
-            const textCanvas = await html2canvas(routeInfoDiv, {
-                scale: 2,
-                logging: false,
-                backgroundColor: 'white'
-            });
-            
-            const textImage = textCanvas.toDataURL('image/jpeg', 1.0);
-            pdf.addImage(textImage, 'JPEG', 10, 120, 190, 160);
-            
-            // הסרת האלמנט הזמני
-            document.body.removeChild(routeInfoDiv);
-            
-            // שמירת הPDF
-            pdf.save('מסלול-נסיעה.pdf');
-            
-        } catch (error) {
-            console.error('PDF Error:', error);
-            alert('שגיאה בייצוא ל-PDF. נסה שנית.');
+            // הוסף את התמונה ל-PDF
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            // גודל A4: 210x297 מ"מ, נשמור על יחס גובה-רוחב של המפה
+            const pdfWidth = 190;
+            const pdfHeight = pdfWidth * (mapElement.offsetHeight / mapElement.offsetWidth);
+            pdf.addImage(imgData, 'JPEG', 10, 10, pdfWidth, pdfHeight);
+
+            pdf.save('map.pdf');
+        } catch (err) {
+            alert('שגיאה ביצירת PDF');
+            console.error(err);
         }
     }
+
     // הוסף בחלק של הסקריפטים
     function setDefaultLocation() {
         alert('לחץ על נקודה במפה כדי להגדיר אותה כמיקום ברירת מחדל');
@@ -830,5 +846,117 @@
             <button class="btn btn-gradient" onclick="closePrayer()">סגור</button>
         </div>
     </div>
+<script>
+let cities = [];
+let originInput = document.getElementById('origin');
+let destInput = document.getElementById('destination');
+
+// טען את רשימת הערים
+fetch('cities.json')
+  .then(res => res.json())
+  .then(data => {
+    cities = data;
+    enableAutocomplete(originInput);
+    enableAutocomplete(destInput);
+  });
+
+function enableAutocomplete(input) {
+    let currentFocus;
+    input.addEventListener("input", function(e) {
+        let val = this.value;
+        closeAllLists();
+        if (!val) return false;
+        currentFocus = -1;
+        let list = document.createElement("div");
+        list.setAttribute("class", "autocomplete-items");
+        list.style.position = "absolute";
+        list.style.right = "0";
+        list.style.left = "0";
+        list.style.zIndex = "10000";
+        this.parentNode.appendChild(list);
+
+        let matches = cities.filter(city =>
+            city.name.includes(val) ||
+            city.alt_names.some(n => n.includes(val))
+        ).slice(0, 10);
+
+        matches.forEach(city => {
+            let item = document.createElement("div");
+            let hebName = city.alt_names.find(n => /[\u0590-\u05FF]/.test(n)) || city.name;
+            item.innerHTML = `<strong>${hebName}</strong>`;
+            item.addEventListener("click", function(e) {
+                input.value = hebName;
+                closeAllLists();
+            });
+            list.appendChild(item);
+        });
+    });
+
+    input.addEventListener("keydown", function(e) {
+        let items = this.parentNode.querySelectorAll(".autocomplete-items div");
+        if (!items.length) return;
+        if (e.keyCode == 40) { // down
+            currentFocus++;
+            addActive(items);
+        } else if (e.keyCode == 38) { // up
+            currentFocus--;
+            addActive(items);
+        } else if (e.keyCode == 13) { // enter
+            e.preventDefault();
+            if (currentFocus > -1) {
+                items[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(items) {
+        if (!items) return false;
+        removeActive(items);
+        if (currentFocus >= items.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = items.length - 1;
+        items[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(items) {
+        for (let item of items) item.classList.remove("autocomplete-active");
+    }
+    function closeAllLists(elmnt) {
+        let items = document.querySelectorAll(".autocomplete-items");
+        for (let item of items) {
+            if (elmnt != item && elmnt != input) item.parentNode.removeChild(item);
+        }
+    }
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+</script>
+<style>
+.autocomplete-items {
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    background: #fff;
+    max-height: 250px;
+    overflow-y: auto;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+    text-align: right;
+}
+.autocomplete-items div:hover, .autocomplete-active {
+    background-color: #e9ecef !important;
+}
+</style>
+<script>
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    loader.style.opacity = 0;
+    setTimeout(() => loader.style.display = 'none', 500);
+});
+</script>
 </body>
 </html>

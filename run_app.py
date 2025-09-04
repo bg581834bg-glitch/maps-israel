@@ -1,80 +1,83 @@
 import webview
 import threading
+from pathlib import Path
 import http.server
 import socketserver
-import os
-from pathlib import Path
 import subprocess
 
+osrm_process = None      # משתנה גלובלי לשרת OSRM
+tile_server = None       # משתנה גלובלי לשרת האריחים
+
 def run_tile_server():
-    """הפעלת שרת סטטי לאריחי המפה"""
+    global tile_server
     PORT = 8000
     Handler = http.server.SimpleHTTPRequestHandler
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
-        print(f"שרת האריחים פועל על פורט {PORT}")
-        httpd.serve_forever()
+    tile_server = socketserver.TCPServer(("", PORT), Handler)
+    print(f"שרת האריחים פועל על פורט {PORT}")
+    try:
+        tile_server.serve_forever()
+    except Exception as e:
+        print(f"שגיאה בשרת האריחים: {e}")
 
 def run_osrm_server():
-    """OSRM הפעלת שרת"""
+    global osrm_process
     try:
         osrm_path = Path("osrm")
         data_file = "israel-and-palestine-latest.osrm"
-        
         if not (osrm_path / data_file).exists():
             print("שגיאה: קובץ הנתונים לא נמצא")
-            return
-            
+            return None
         cmd = f"osrm-routed {data_file}"
-        process = subprocess.Popen(cmd, shell=True, cwd=osrm_path)
+        osrm_process = subprocess.Popen(cmd, shell=True, cwd=osrm_path)
         print("שרת OSRM הופעל")
-        return process
+        return osrm_process
     except Exception as e:
         print(f"שגיאה בהפעלת שרת OSRM: {e}")
         return None
 
-def main():
-    # הפעלת שרת האריחים ברקע
-    tile_server_thread = threading.Thread(target=run_tile_server, daemon=True)
-    tile_server_thread.start()
-    
-    # OSRM הפעלת שרת
-    osrm_process = run_osrm_server()
-    
+def on_closed():
+    global osrm_process, tile_server
+    # סגור את שרת OSRM
     if osrm_process:
         try:
-            # קביעת גודל החלון
-            screen_width = webview.screens[0].width
-            screen_height = webview.screens[0].height
-            
-            # חישוב גודל החלון (80% מגודל המסך)
-            window_width = int(screen_width * 1.0)
-            window_height = int(screen_height * 1.0)
-            
-            # חישוב מיקום החלון (ממורכז)
-            x = (screen_width - window_width) // 2
-            y = (screen_height - window_height) // 2
-            
-            # יצירת חלון אפליקציה
-            html_path = f'file://{Path("INDEX.html").absolute()}'
-            window = webview.create_window(
-                'go\'maps - ניווט ומפות ישראל',
-                html_path,
-                width=window_width,
-                height=window_height,
-                x=x,
-                y=y,
-                min_size=(800, 600),
-                resizable=True
-            )
-            
-            # הגדרות נוספות לחלון
-            webview.start(debug=False)
-            
-        finally:
-            print("\nסוגר את האפליקציה...")
             osrm_process.terminate()
-            osrm_process.wait()
-            print("האפליקציה נסגרה בהצלחה.")
+            osrm_process.wait(timeout=5)
+            print("שרת OSRM כובה.")
+        except Exception:
+            osrm_process.kill()
+            print("שרת OSRM נהרג בכוח.")
+    # סגור את שרת האריחים
+    if tile_server:
+        try:
+            tile_server.shutdown()
+            print("שרת האריחים כובה.")
+        except Exception as e:
+            print(f"שגיאה בכיבוי שרת האריחים: {e}")
+
+def main():
+    splash_path = f'file://{Path("splash.html").absolute()}'
+    window = webview.create_window(
+        'go\'maps',
+        splash_path,
+        width=1200,
+        height=900,
+        min_size=(800, 600),
+        resizable=True
+    )
+
+    # הפעל שרת האריחים כ-thread (לא דמוני!)
+    tile_server_thread = threading.Thread(target=run_tile_server)
+    tile_server_thread.start()
+    run_osrm_server()
+
+    # חבר את האירוע של סגירת החלון
+    window.events.closed += on_closed
+
+    # טען את הדף הראשי
+    html_path = f'file://{Path("index.html").absolute()}'
+    def load_main(window):
+        window.load_url(html_path)
+    webview.start(load_main, window)
 
 if __name__ == "__main__":
     main()
